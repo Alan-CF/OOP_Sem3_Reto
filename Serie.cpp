@@ -46,3 +46,8 @@ float Serie::getCalificacion()
 	}
 	return sum / it;
 }
+
+std::vector<Capitulo>& Serie::getCapitulosVector()
+{
+	return capitulos;
+}

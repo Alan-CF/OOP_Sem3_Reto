@@ -22,4 +22,5 @@ public:
     int getDuracion();
     std::string getGenero();
     float getCalificacion();
+    std::vector<Capitulo>& getCapitulosVector();
 };
