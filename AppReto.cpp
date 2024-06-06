@@ -10,7 +10,7 @@
 
 void cargarPeliculas(std::vector<Pelicula>& peliculas); // se pasa apuntador de vector de peliculas, lee los archivos de las peliculas.
 void CargarSeries(std::vector<Serie>& series); // se pasa apuntador de vector de series, lee los archivos de las series.
-
+void sorprendeme(); // Reproduce un video aleatorio.
 
 int main()
 {
@@ -106,30 +106,7 @@ int main()
 			series[menu2_2 - 1].getCapitulosVector()[i].calificar();
 		}
 	} else if(menu1 == 3) {
-		//El peak de mi carrera
-		std::vector<Video*> videos;
-
-		std::vector<Pelicula> peliculas;
-		cargarPeliculas(peliculas);
-
-		std::vector<Serie> series;
-		CargarSeries(series);
-
-		for (auto& pelicula : peliculas) {
-			videos.push_back(&pelicula);
-		}
-
-		for (auto& serie : series) {
-			for (auto& capitulo : serie.getCapitulosVector()) {
-				videos.push_back(&capitulo);
-			}
-		}
-
-		srand(time(0)); //Semilla de rand aleatoria
-		int indiceAleatorio = rand() % videos.size(); // Genera un índice aleatorio
-
-		videos[indiceAleatorio]->reproducir();
-		videos[indiceAleatorio]->calificar();
+		sorprendeme();
 	}
 }
 
@@ -150,4 +127,32 @@ void CargarSeries(std::vector<Serie>& series) {
 	RickAndMorty.push_back(Capitulo("3.3", "Get Schwifty", 50));
 	RickAndMorty.push_back(Capitulo("3.4", "Pickle Rick", 52));
 	series.push_back(Serie("4", "Rick and Morty", "Drama", RickAndMorty));
+}
+
+void sorprendeme()
+{
+	//El peak de mi carrera
+	std::vector<Video*> videos;
+
+	std::vector<Pelicula> peliculas;
+	cargarPeliculas(peliculas);
+
+	std::vector<Serie> series;
+	CargarSeries(series);
+
+	for (auto& pelicula : peliculas) {
+		videos.push_back(&pelicula);
+	}
+
+	for (auto& serie : series) {
+		for (auto& capitulo : serie.getCapitulosVector()) {
+			videos.push_back(&capitulo);
+		}
+	}
+
+	srand(time(0)); //Semilla de rand aleatoria
+	int indiceAleatorio = rand() % videos.size(); // Genera un índice aleatorio
+
+	videos[indiceAleatorio]->reproducir();
+	videos[indiceAleatorio]->calificar();
 }
