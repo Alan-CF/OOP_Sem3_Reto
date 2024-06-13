@@ -1,0 +1,7 @@
+Tipo,Id,Nombre,Genero,Duracion,Calificacion,Numero de Calificaciones
+serie,s1,Breaking Bad,Crimen,,,
+capitulo,c1.1,Better Call Saul,,50,9.2,3
+capitulo,c1.2,Fly,,55,3.1,9
+serie,s2,Rick and Morty,Comedia,,,
+capitulo,c2.1,Get Schwifty,,30,9.1,5
+capitulo,c2.2,Pickle Rick,,32,9.9,11

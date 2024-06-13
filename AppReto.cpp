@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
+#include <fstream>
+#include <sstream>
+
 #include "Capitulo.h"
 #include "Serie.h"
 #include "Pelicula.h"
@@ -11,6 +13,7 @@
 void cargarPeliculas(std::vector<Pelicula>& peliculas); // se pasa apuntador de vector de peliculas, lee los archivos de las peliculas.
 void cargarSeries(std::vector<Serie>& series); // se pasa apuntador de vector de series, lee los archivos de las series.
 void getVideos(std::vector<Video*>& videos, std::vector<Pelicula>& peliculas, std::vector<Serie>& series); // Pone todos los videos en un vector.
+std::vector<Pelicula> readPeliculasCSV();
 
 int main()
 {
@@ -47,7 +50,8 @@ int main()
 
 		if (menu1 == 1) {
 
-			cargarPeliculas(peliculas);
+			//cargarPeliculas(peliculas);
+			peliculas = readPeliculasCSV();
 
 			for (int i = 0; i < peliculas.size(); i++) {
 				//Se suma 1 a i por claridad, lista para vista de usuario debe de empezar en 1
@@ -114,7 +118,7 @@ int main()
 			}
 		}
 		else if (menu1 == 3) {
-			cargarPeliculas(peliculas);
+			peliculas = readPeliculasCSV();
 			cargarSeries(series);
 			std::vector<Video*> videos;
 			getVideos(videos, peliculas, series);
@@ -144,6 +148,7 @@ int main()
 				}
 			} while (!validInput3_1);
 			videos[menu3_1 - 1]->reproducir();
+			videos[menu3_1 - 1]->calificar();
 		}
 		else if (menu1 == 4) {
 			loop = false;
@@ -182,4 +187,41 @@ void getVideos(std::vector<Video*>& videos, std::vector<Pelicula>& peliculas, st
 			videos.push_back(&capitulo);
 		}
 	}
+}
+
+std::vector<Pelicula> readPeliculasCSV() {
+	std::string archivo = "Peliculas.csv";
+	std::vector<Pelicula> peliculas;
+	std::ifstream file(archivo);
+
+	if (!file.is_open()) {
+		std::cerr << "Error opening file: " << archivo << std::endl;
+		return peliculas;
+	}
+
+	std::string line, word;
+	// Skip the header line
+	std::getline(file, line);
+
+	while (std::getline(file, line)) {
+		std::stringstream ss(line);
+		std::string id, nombre, genero;
+		int duracion, numCalifs;
+		float calificacion;
+
+		std::getline(ss, id, ',');
+		std::getline(ss, nombre, ',');
+		std::getline(ss, word, ',');
+		duracion = std::stoi(word);
+		std::getline(ss, genero, ',');
+		std::getline(ss, word, ',');
+		calificacion = std::stof(word);
+		std::getline(ss, word, ',');
+		numCalifs = std::stoi(word);
+
+		peliculas.emplace_back(id, nombre, duracion, genero, calificacion, numCalifs);
+	}
+
+	file.close();
+	return peliculas;
 }
