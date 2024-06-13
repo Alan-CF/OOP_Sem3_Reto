@@ -24,3 +24,4 @@ public:
     float getCalificacion();
     std::vector<Capitulo>& getCapitulosVector();
 };
+

@@ -11,7 +11,7 @@ protected:
     int numCalifs;
 
 public:
-    Video(std::string _id, std::string _nombre, int _duracion);
+    Video(std::string _id, std::string _nombre, int _duracion, float calificacion, int numCalifs);
 
     virtual void reproducir();
     virtual void calificar() = 0;

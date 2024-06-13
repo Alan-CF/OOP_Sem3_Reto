@@ -6,7 +6,7 @@ class Capitulo :
 private:
 
 public:
-    Capitulo(std::string _id, std::string _nombre, int _duracion);
+    Capitulo(std::string _id, std::string _nombre, int _duracion, float _calificacion, int _numCalifs);
     
     void reproducir();
     void calificar();

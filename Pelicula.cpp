@@ -1,7 +1,7 @@
 #include "Pelicula.h"
 #include <iostream>
 
-Pelicula::Pelicula(std::string _id, std::string _nombre, int _duracion, std::string _genero) : Video(_id, _nombre, _duracion)
+Pelicula::Pelicula(std::string _id, std::string _nombre, int _duracion, std::string _genero, float _calificacion, int _numCalifs) : Video(_id, _nombre, _duracion, _calificacion, _numCalifs)
 {
 	genero = _genero;
 }
@@ -23,3 +23,5 @@ void Pelicula::calificar()
 }
 
 std::string Pelicula::getGenero() {return genero;}
+
+

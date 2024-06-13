@@ -1,7 +1,7 @@
 #include "Capitulo.h"
 
 
-Capitulo::Capitulo(std::string _id, std::string _nombre, int _duracion) : Video(_id, _nombre, _duracion) {}
+Capitulo::Capitulo(std::string _id, std::string _nombre, int _duracion, float _calificacion, int _numCalifs) : Video(_id, _nombre, _duracion, _calificacion, _numCalifs) {}
 
 void Capitulo::reproducir()
 {

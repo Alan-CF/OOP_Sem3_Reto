@@ -7,7 +7,7 @@ private:
     std::string genero;
 
 public:
-    Pelicula(std::string _id, std::string _nombre, int _duracion, std::string _genero);
+    Pelicula(std::string _id, std::string _nombre, int _duracion, std::string _genero, float _calificacion, int _numCalifs);
 
     void reproducir();
     void calificar();

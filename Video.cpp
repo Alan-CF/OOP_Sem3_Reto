@@ -1,12 +1,12 @@
 #include "Video.h"
 
-Video::Video(std::string _id, std::string _nombre, int _duracion)
+Video::Video(std::string _id, std::string _nombre, int _duracion, float _calificacion, int _numCalifs)
 {
 	id = _id;
 	nombre = _nombre;
 	duracion = _duracion;
-	numCalifs = 0;
-	calificacion = 0;
+	numCalifs = _numCalifs;
+	calificacion = _calificacion;
 }
 
 void Video::reproducir()
