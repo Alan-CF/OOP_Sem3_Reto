@@ -12,7 +12,6 @@
 #include "Pelicula.h"
 
 
-void cargarSeries(std::vector<Serie>& series); // se pasa apuntador de vector de series, lee los archivos de las series.
 void getVideos(std::vector<Video*>& videos, std::vector<Pelicula>& peliculas, std::vector<Serie>& series); // Pone todos los videos en un vector.
 std::vector<Pelicula> readPeliculasCSV();
 std::vector<Serie> readSeriesCSV();
