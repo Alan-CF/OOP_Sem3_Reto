@@ -5,15 +5,17 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include <unordered_map>
 
 #include "Capitulo.h"
 #include "Serie.h"
 #include "Pelicula.h"
 
-void cargarPeliculas(std::vector<Pelicula>& peliculas); // se pasa apuntador de vector de peliculas, lee los archivos de las peliculas.
+
 void cargarSeries(std::vector<Serie>& series); // se pasa apuntador de vector de series, lee los archivos de las series.
 void getVideos(std::vector<Video*>& videos, std::vector<Pelicula>& peliculas, std::vector<Serie>& series); // Pone todos los videos en un vector.
 std::vector<Pelicula> readPeliculasCSV();
+std::vector<Serie> readSeriesCSV();
 
 int main()
 {
@@ -55,7 +57,7 @@ int main()
 
 			for (int i = 0; i < peliculas.size(); i++) {
 				//Se suma 1 a i por claridad, lista para vista de usuario debe de empezar en 1
-				std::cout << "\t" << i + 1 << ". " << peliculas[i].getNombre() << "\tCalificacion: " << peliculas[i].getCalificacion() << std::endl;
+				std::cout << "\t" << i + 1 << ". " << peliculas[i].getNombre() << "\tGenero:" << peliculas[i].getGenero() << "\tCalificacion: " << peliculas[i].getCalificacion() << std::endl;
 			}
 
 			//Input seguro menu 1.2
@@ -84,11 +86,11 @@ int main()
 		}
 		else if (menu1 == 2) {
 
-			cargarSeries(series);
+			series = readSeriesCSV();
 
 			for (int i = 0; i < series.size(); i++) {
 				//Se suma 1 a i por claridad, lista para vista de usuario debe de empezar en 1
-				std::cout << "\t" << i + 1 << ". " << series[i].getNombre() << "\tCalificacion: " << series[i].getCalificacion() << std::endl;
+				std::cout << "\t" << i + 1 << ". " << series[i].getNombre() << "\tGenero:" << series[i].getGenero() << "\tCalificacion: " << series[i].getCalificacion() << std::endl;
 			}
 
 			//Input seguro menu 1.2
@@ -119,7 +121,7 @@ int main()
 		}
 		else if (menu1 == 3) {
 			peliculas = readPeliculasCSV();
-			cargarSeries(series);
+			series = readSeriesCSV();
 			std::vector<Video*> videos;
 			getVideos(videos, peliculas, series);
 
@@ -156,11 +158,7 @@ int main()
 	}
 }
 
-void cargarPeliculas(std::vector<Pelicula>& peliculas) {
-	// Futura implementacion leerá archivos
-	peliculas.push_back(Pelicula("1", "Coraline", 120, "Suspenso", 9.5, 3));
-	peliculas.push_back(Pelicula("2", "Baby Driver", 160, "Accion", 8.1, 9));
-}
+
 
 void cargarSeries(std::vector<Serie>& series) {
 	// Futura implementacion leerá archivos
@@ -200,7 +198,7 @@ std::vector<Pelicula> readPeliculasCSV() {
 	}
 
 	std::string line, word;
-	// Skip the header line
+	// Se salta la primera linea
 	std::getline(file, line);
 
 	while (std::getline(file, line)) {
@@ -224,4 +222,62 @@ std::vector<Pelicula> readPeliculasCSV() {
 
 	file.close();
 	return peliculas;
+}
+
+std::vector<Serie> readSeriesCSV() {
+	std::string archivo = "Series.csv";
+	std::vector<Serie> series;
+	std::ifstream file(archivo);
+
+	if (!file.is_open()) { //lanza error si el archivo no abre
+		std::cerr << "Error opening file: " << archivo << std::endl;
+		return series;
+	}
+
+	std::string line;
+	// salta titulos
+	std::getline(file, line);
+
+	// Mapa temporal para guardar los episodios
+	std::unordered_map<std::string, Serie*> seriesMap;
+
+	while (std::getline(file, line)) {
+		std::stringstream ss(line);
+		std::string tipo, id, nombre, genero, word;
+		int duracion = 0, numCalifs = 0;
+		float calificacion = 0.0;
+
+		std::getline(ss, tipo, ',');
+		std::getline(ss, id, ',');
+		std::getline(ss, nombre, ',');
+		std::getline(ss, genero, ',');
+
+		if (tipo == "serie") {
+			// Crea una nueva serie
+			std::vector<Capitulo> capitulos;
+			Serie serie(id, nombre, genero, capitulos);
+			series.push_back(serie);
+			seriesMap[id] = &series.back();
+
+		}
+		else if (tipo == "capitulo") {
+			// lee los datos de un capitulo
+			std::getline(ss, word, ',');
+			duracion = std::stoi(word);
+			std::getline(ss, word, ',');
+			calificacion = std::stof(word);
+			std::getline(ss, word, ',');
+			numCalifs = std::stoi(word);
+
+			// Create a new episode and add it to the corresponding series
+			Capitulo episodio(id, nombre, duracion, calificacion, numCalifs);
+			std::string serieId = id.substr(0, id.find_last_of('.')); // Encuentra el id de la serie
+			if (seriesMap.find(serieId) != seriesMap.end()) {
+				seriesMap[serieId]->getCapitulosVector().push_back(episodio);
+			}
+		}
+	}
+
+	file.close();
+	return series;
 }

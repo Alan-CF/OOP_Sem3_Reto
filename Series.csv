@@ -1,7 +1,21 @@
 Tipo,Id,Nombre,Genero,Duracion,Calificacion,Numero de Calificaciones
 serie,s1,Breaking Bad,Crimen,,,
-capitulo,c1.1,Better Call Saul,,50,9.2,3
-capitulo,c1.2,Fly,,55,3.1,9
+capitulo,s1.1,Better Call Saul,,50,9.2,3
+capitulo,s1.2,Fly,,55,3.1,9
+capitulo,s1.3,Cancer Man,,45,8.9,7
 serie,s2,Rick and Morty,Comedia,,,
-capitulo,c2.1,Get Schwifty,,30,9.1,5
-capitulo,c2.2,Pickle Rick,,32,9.9,11
+capitulo,s2.1,Get Schwifty,,30,9.1,5
+capitulo,s2.2,Pickle Rick,,32,9.9,11
+capitulo,s2.3,The vat of acid episode,,45,8.7,3
+serie,s3,La Familia P. Luche,Comedia,,,
+capitulo,s3.1,Recuerdos,,34,6.6,22
+capitulo,s3.2,La sirvienta,,24,7.1,31
+capitulo,s3.3,Cumple de Ludoviquito,,31,7.7,40
+serie,s4,Hora de Aventura,Animacion,,,
+capitulo,s4.1,Conociendo al rey helado,,41,7.7,13
+capitulo,s4.2,Finn el Mago,,45,8.2,20
+capitulo,s4.3,Buenos Amigos,,37,8.7,12
+serie,s5,Bob Esponja,Animacion,,,
+capitulo,s5.1,Plankton,,21,8.7,42
+capitulo,s5.2,Escuela de Manejo,,24,9.1,31
+capitulo,s5.3,Pizza a Domicilio,,22,9.9,123
