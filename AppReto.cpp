@@ -157,21 +157,6 @@ int main()
 	}
 }
 
-
-
-void cargarSeries(std::vector<Serie>& series) {
-	// Futura implementacion leerá archivos
-	std::vector<Capitulo> BreakingBad;
-	BreakingBad.push_back(Capitulo("3.1", "Better call Saul", 50, 9.2, 2));
-	BreakingBad.push_back(Capitulo("3.2", "Fly", 55, 3.2, 4));
-	series.push_back(Serie("3", "Breaking Bad", "Drama", BreakingBad));
-
-	std::vector<Capitulo> RickAndMorty;
-	RickAndMorty.push_back(Capitulo("3.3", "Get Schwifty", 50, 6.6, 11));
-	RickAndMorty.push_back(Capitulo("3.4", "Pickle Rick", 52, 9.2, 19));
-	series.push_back(Serie("4", "Rick and Morty", "Drama", RickAndMorty));
-}
-
 //El peak de mi carrera
 void getVideos(std::vector<Video*>& videos, std::vector<Pelicula>& peliculas, std::vector<Serie>& series)
 {
